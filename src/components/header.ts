@@ -1,33 +1,80 @@
-
-interface Linker {
-    title:string;
-    url:string;
+import { elementClose, elementOpen, text } from "incremental-dom";
+import { Render } from "../render";
+interface ILinker {
+    title: string;
+    url: string;
 }
 
-type Linkers = Linker[];
+type Linkers = ILinker[];
 
-interface Header{
-    links:Linkers;
-    Logo:string;
+interface IHeader {
+    links: Linkers;
+    logo: string;
 }
 
-class Link implements Linker {
-     constructor(
-        public title:string,
-        public url:string
-     ){}
+class Link extends Render implements ILinker {
+    constructor(
+        public title: string,
+        public url: string,
+        public parent?:Element,
+    ) {
+        super();
+    }
 
-     click(){
-         window.location.href = this.url;
-     }
+    public click() {
+        window.location.href = this.url;
+    }
+
+    public render() {
+        elementOpen("a", null, null,
+            "style",{
+                "color":"#888",
+                "background":"#f8f8f8",
+                "padding":"5px 10px 5px",
+                "cursor":"pointer",
+                "margin-left":"20px"
+            },
+            "onclick", this.click.bind(this),
+        );
+        text(this.title);
+        elementClose("a");
+    }
 }
 
-type Links =Link[]
+type Links = Link[];
+
+class Header extends Render implements IHeader {
+    constructor(
+        public links:Links,
+        public logo:string,
+    ){super()}
+
+    public render(){
+        elementOpen("div",null,null,
+            "style",{
+                "background":"#efefef",
+                "padding":"20px"
+            }
+        )
+            this.links.forEach((link:Link)=>{
+                link.render()
+            })
+            elementOpen("span",null,null,
+                "style",{
+                    "margin-left":"10%"
+                }
+            )
+                text("Regan's Blog - 记录一些生活琐事，记录一些技术")
+            elementClose("span")
+        elementClose("div")
+    }
+}
 
 export {
     Link,
     Links,
-    Linker,
+    ILinker,
     Linkers,
+    IHeader,
     Header
-}
+};
