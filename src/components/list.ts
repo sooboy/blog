@@ -61,10 +61,8 @@ class Item extends Render implements IItem {
     }
 }
 
-class List extends Render {
-    constructor(
-        public items: Items
-    ) { super() }
+class List extends Render<Item> {
+    constructor() { super() }
 
     public render() {
         elementOpen("div",null,null,
@@ -73,8 +71,10 @@ class List extends Render {
                 width:"800px"
             }
         )
-        this.items.forEach((item: Item) => {
-            item.render()
+        this.Iterator((item:Item,index:number)=>{
+            elementOpen("div",String(index))
+                item.render()
+            elementClose("div")
         })
         elementClose("div")
     }

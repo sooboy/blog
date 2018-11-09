@@ -8,7 +8,6 @@ interface ILinker {
 type Linkers = ILinker[];
 
 interface IHeader {
-    links: Linkers;
     logo: string;
 }
 
@@ -43,9 +42,8 @@ class Link extends Render implements ILinker {
 
 type Links = Link[];
 
-class Header extends Render implements IHeader {
+class Header extends Render<Link> implements IHeader {
     constructor(
-        public links:Links,
         public logo:string,
     ){super()}
 
@@ -56,7 +54,7 @@ class Header extends Render implements IHeader {
                 "padding":"20px"
             }
         )
-            this.links.forEach((link:Link)=>{
+            this.Iterator((link:Link)=>{
                 link.render()
             })
             elementOpen("span",null,null,
