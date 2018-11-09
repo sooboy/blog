@@ -42,7 +42,7 @@ class Link extends Render implements ILinker {
 
 type Links = Link[];
 
-class Header extends Render<Link> implements IHeader {
+class Header extends Render implements IHeader {
     constructor(
         public logo:string,
     ){super()}
@@ -54,7 +54,7 @@ class Header extends Render<Link> implements IHeader {
                 "padding":"20px"
             }
         )
-            this.Iterator((link:Link)=>{
+            this.Iterator((link:Render)=>{
                 link.render()
             })
             elementOpen("span",null,null,

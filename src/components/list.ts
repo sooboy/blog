@@ -46,15 +46,24 @@ class Item extends Render implements IItem {
                 "display":"inline-block"
             }
         )
-        elementOpen("p")
+        elementOpen("h2",null,null,
+        "style",{
+
+        }
+        )
         text(this.title)
-        elementClose("p")
-        elementOpen("p")
-        text(this.url)
-        elementClose("p")
-        elementOpen("p")
+        elementClose("h2")
+        elementOpen("div",null,null,
+        "style",{
+            height: "80px",
+            overflow: "hidden",
+            "font-size": "14px",
+            padding: "10px 60px 0px 0px",
+            color: "#5f5f5f"
+        }
+        )
         text(this.description)
-        elementClose("p")
+        elementClose("div")
         elementClose("div")
 
         elementClose("div")
