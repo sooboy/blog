@@ -28,7 +28,9 @@ abstract class ISet<T> {
               f(this.items[i],i)
          }
          return this;
-    }
+	}
+	
+	// test to remote
 }
 abstract class Render<T = Render<any>> extends ISet<T> {
 	public parent?: Element;
